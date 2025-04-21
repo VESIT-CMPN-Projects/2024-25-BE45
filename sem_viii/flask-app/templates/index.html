@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GameSpec Advisor</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='index_styles.css') }}" />
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home.home') }}">Home</a></li>
+                <li><a href="{{ url_for('query.home') }}">Suggest</a></li>
+                <li><a href="{{ url_for('batch.home') }}">Health Check</a></li>
+        
+                {% if 'username' in session %}
+                    <!-- User is logged in, show logout -->
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                    <!-- User is not logged in, show login/signup -->
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.sign_up') }}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="center-container">
+            <div class="upper-section">
+                <div class="input-container">
+                    <label for="game_input">Search for a Game:</label>
+                    <input
+                        id="game_input"
+                        type="text"
+                        name="game_input"
+                        placeholder="Enter game name..."
+                    />
+                    <div id="game_dropdown" class="dropdown"></div>
+                </div>
+                <button id="submit_button">Find Recommended Specs</button>
+            </div>
+            <hr />
+            <div class="lower-section">
+                <div class="input-container">
+                    <label for="cpu_input">CPU:</label>
+                    <input
+                        id="cpu_input"
+                        type="text"
+                        name="cpu"
+                        placeholder="Enter your CPU..."
+                    />
+                    <div id="cpu_dropdown" class="dropdown"></div>
+                </div>
+
+                <div class="input-container">
+                    <label for="ram_input">RAM:</label>
+                    <input
+                    id="ram_input"
+                    type="text"
+                    name="ram"
+                    placeholder="Enter your RAM..."
+                    />
+                    <div id="ram_dropdown" class="dropdown"></div>
+                </div>
+                
+                <div class="input-container">
+                    <label for="gpu_input">GPU:</label>
+                    <input
+                        id="gpu_input"
+                        type="text"
+                        name="gpu"
+                        placeholder="Enter your GPU..."
+                    />
+                    <div id="gpu_dropdown" class="dropdown"></div>
+                </div>
+
+                <button id="check_compatibility">Check Compatibility</button>
+            </div>
+            <div id="compatibility_results"></div>
+        </div>
+
+        <script>
+            const gameSearchInput = document.querySelector("#game_search");
+            const dropDown = document.querySelector("#dropdown");
+            const checkCompatButton = document.querySelector("#check_compatibility");
+            const submitButton = document.querySelector("#submit_button");
+            const previous = {};
+
+            function populateDropDown(input, items, dropDown) {
+                dropDown.innerHTML = "";
+                if (!items.length) {
+                    dropDown.innerHTML = "<div>No results found</div>";
+                    return;
+                }
+
+                items.forEach((item) => {
+                    const dropDownItem = document.createElement("div");
+                    dropDownItem.textContent = item;
+                    dropDownItem.addEventListener("click", () => {
+                        input.value = item;
+                        dropDown.style.display = "none";
+                    });
+                    dropDown.appendChild(dropDownItem);
+                });
+
+                dropDown.style.display = "block";
+            }
+
+            function getAutoCompletions(item, input, dropDown) {
+                const currentItem = input.value.trim();
+
+                if (!currentItem) {
+                    dropDown.style.display = "none";
+                    return;
+                }
+
+                if (currentItem === "" || previous[item] === currentItem) return;
+                previous[item] = currentItem;
+
+                let endpoint;
+                if (item === "game") {
+                    endpoint = `/query/game?name=${currentItem}`;
+                } else {
+                    endpoint = `/query/component?category=${item}&name=${currentItem}`;
+                }
+
+                fetch(endpoint)
+                    .then((res) => res.json())
+                    .then((autoCompletions) => {
+                        populateDropDown(input, autoCompletions, dropDown);
+                    })
+                    .catch((err) =>
+                        console.error("Error fetching autoCompletions:", err)
+                    );
+            }
+
+            function addDropdownListeners(input, component, dropDown) {
+                input.addEventListener("keyup", () => {
+                    console.log("I was fired");
+                    getAutoCompletions(component, input, dropDown);
+                });
+
+                input.addEventListener("focus", () => (dropDown.style.display = "block"));
+                input.addEventListener("blur", () =>
+                    setTimeout(() => (dropDown.style.display = "none"), 200)
+                );
+
+                dropDown.addEventListener("click", (event) => {
+                    if (event.target.tagName === "DIV") {
+                        const selectedValue = event.target.textContent;
+                        input.value = selectedValue; // Update the field
+
+                        dropDown.style.display = "none"; // Hide dropdown
+                    }
+                });
+            }
+
+            // Get elements
+            const gameInput = document.querySelector("#game_input");
+            const cpuInput = document.querySelector("#cpu_input");
+            const gpuInput = document.querySelector("#gpu_input");
+            const ramInput = document.querySelector("#ram_input");
+
+            const gameDropdown = document.querySelector("#game_dropdown");
+            const cpuDropdown = document.querySelector("#cpu_dropdown");
+            const gpuDropdown = document.querySelector("#gpu_dropdown");
+            const ramDropdown = document.querySelector("#ram_dropdown");
+
+            // Attach event listeners
+            addDropdownListeners(gameInput, "game", gameDropdown);
+            addDropdownListeners(cpuInput, "cpu", cpuDropdown);
+            addDropdownListeners(gpuInput, "gpu", gpuDropdown);
+            addDropdownListeners(ramInput, "ram", ramDropdown);
+
+            checkCompatButton.addEventListener("click", () => {
+                const data = {
+                    cpu: cpuInput.value,
+                    gpu: gpuInput.value,
+                    ram: ramInput.value,
+                };
+
+                fetch(`/query/check-compatibility`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                })
+                    .then((res) => res.json())
+                    .then((result) => {
+                        const resultsDiv = document.querySelector(
+                            "#compatibility_results"
+                        );
+                        resultsDiv.innerHTML = `
+                                        <p><strong>Compatibility Score:</strong> ${result.score}</p>
+                                        <p><strong>Decision:</strong> ${result.decision}</p>
+                                    `;
+                    })
+                    .catch((err) => console.error("Error checking compatibility:", err));
+            });
+
+            submitButton.addEventListener("click", () => {
+                const selectedGame = gameInput.value.trim();
+                if (!selectedGame) {
+                    alert("Please enter a game name first.");
+                    return;
+                }
+
+                fetch(`/query/specs?game=${selectedGame}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.length === 0) {
+                            alert("No recommended specs found for this game.");
+                            return;
+                        }
+
+                        const [cpu, ram, gpu] = data[0];
+                        cpuInput.value = cpu[1];
+                        gpuInput.value = gpu[1];
+                        ramInput.value = ram[1];
+                    })
+                    .catch((err) => console.error("Error fetching specs:", err));
+            });
+        </script>
+    </body>
+</html>

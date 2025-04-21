@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameSpec Advisor | Build Your Perfect Gaming Rig</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home_styles.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <div class="logo">🎮 GameSpec Advisor</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#start">Start Now</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Optimize Your Gaming Build Like a Pro</h1>
+    <p>Custom PC recommendations tailored for your favorite games, performance goals, and budget.</p>
+    <a href="#start" class="cta-button">Get Started</a>
+  </section>
+
+  <section id="features" class="features">
+    <h2>Why GameSpec Advisor?</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <h3>🎮 Game-Based Builds</h3>
+        <p>Select your games — we’ll build the perfect PC to match.</p>
+      </div>
+      <div class="feature-item">
+        <h3>⚙️ Real-Time Compatibility Checks</h3>
+        <p>No more bottlenecks or mismatched hardware.</p>
+      </div>
+      <div class="feature-item">
+        <h3>📊 AI-Powered Sentiment Insights</h3>
+        <p>See what the gaming community really thinks of your setup.</p>
+      </div>
+      <div class="feature-item">
+        <h3>💸 Smart Price & Performance Matching</h3>
+        <p>Max out performance without breaking your budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Select your favorite games.</li>
+      <li>Receive an optimized, compatible, and benchmark-backed build recommendation.</li>
+      <li>Adjust, save, or share your configuration.</li>
+    </ol>
+  </section>
+
+  <section id="start" class="start-now">
+    <h2>Ready to Build?</h2>
+    <a href="{{ url_for('home.index') }}" class="cta-button">Launch GameSpec Advisor</a>
+  </section>
+
+  <footer>
+    <p>© 2025 GameSpec Advisor | Made with ❤️ for gamers</p>
+  </footer>
+
+</body>
+</html>

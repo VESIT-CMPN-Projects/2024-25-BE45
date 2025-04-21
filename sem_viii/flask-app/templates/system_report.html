@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
+    <title>System Report Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='report_styles.css') }}"/>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home.home') }}">Home</a></li>
+            <li><a href="{{ url_for('query.home') }}">Suggest</a></li>
+            <li><a href="{{ url_for('batch.home') }}">Health Check</a></li>
+        </ul>
+    </nav>
+
+    <h1>System Hardware Summary</h1>
+
+    <h2>CPU</h2>
+    <ul>
+        {% for key, value in parsed_info["CPU"].items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>GPU</h2>
+    <ul>
+        {% for key, value in parsed_info["GPU"].items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Operating System</h2>
+    <ul>
+        {% for key, value in parsed_info["OS"].items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>BIOS</h2>
+    <ul>
+        {% for key, value in parsed_info["BIOS"].items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Disks</h2>
+    <table>
+        <tr>
+            <th>Caption</th>
+            <th>Size</th>
+            <th>Status</th>
+        </tr>
+        {% for disk in parsed_info["Disks"] %}
+        <tr>
+            <td>{{ disk.Caption }}</td>
+            <td>{{ disk.Size }}</td>
+            <td>{{ disk.Status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Memory</h2>
+    <table>
+        <tr>
+            {% for key in parsed_info["Memory"][0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+        {% for memory in parsed_info["Memory"] %}
+        <tr>
+            {% for value in memory.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Performance Metrics</h2>
+    <ul>
+        {% for key, value in parsed_info["Performance"].items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>MemoryInfo</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>Bank Label</th>
+            <th>Capacity (Bytes)</th>
+            <th>Device Locator</th>
+            <th>Manufacturer</th>
+            <th>Memory Type</th>
+            <th>Speed (MHz)</th>
+            <th>Part Number</th>
+            <th>Serial Number</th>
+            <th>Tag</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meminfo in parsed_info["MemoryInfo"] %}
+            <tr>
+            <td>{{ meminfo["BankLabel"] }}</td>
+            <td>{{ meminfo["Capacity"] }}</td>
+            <td>{{ meminfo["DeviceLocator"] }}</td>
+            <td>{{ meminfo["Manufacturer"] }}</td>
+            <td>{{ meminfo["MemoryType"] }}</td>
+            <td>{{ meminfo["Speed"] }}</td>
+            <td>{{ meminfo["PartNumber"] }}</td>
+            <td>{{ meminfo["SerialNumber"] }}</td>
+            <td>{{ meminfo["Tag"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Memory Status</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>Total Physical Memory</th>
+            <th>Available Physical Memory</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{ parsed_info["MemoryStatus"]["Total Physical Memory"] }}</td>
+            <td>{{ parsed_info["MemoryStatus"]["Available Physical Memory"] }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Virtual Memory</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>Max Size</th>
+            <th>Available</th>
+            <th>In Use</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{ parsed_info["VirtualMemory"]["Max Size"] }}</td>
+            <td>{{ parsed_info["VirtualMemory"]["Available"] }}</td>
+            <td>{{ parsed_info["VirtualMemory"]["In Use"] }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Recommended Drivers</h2>
+    <ul>
+        <li><a href="{{ driver_links['CPU Driver'] }}" target="_blank">CPU Driver</a></li>
+        <li><a href="{{ driver_links['GPU Driver'] }}" target="_blank">GPU Driver</a></li>
+        <li><a href="{{ driver_links['BIOS Update'] }}" target="_blank">BIOS Update</a></li>
+        <li><a href="{{ driver_links['Windows Update'] }}" target="_blank">Windows Update</a></li>
+    </ul>
+
+</body>
+</html>

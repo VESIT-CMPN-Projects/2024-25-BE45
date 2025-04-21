@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Info Collector</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='batch_styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home.home') }}">Home</a></li>
+            <li><a href="{{ url_for('query.home') }}">Suggest</a></li>
+            <li><a href="{{ url_for('batch.home') }}">Health Check</a></li>
+    
+            {% if 'username' in session %}
+                <!-- User is logged in, show logout -->
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            {% else %}
+                <!-- User is not logged in, show login/signup -->
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.sign_up') }}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <h1>PC Hardware Info Tool</h1>
+
+    <p>To help us evaluate your system, please download and run the batch file below. It will collect your hardware info and save it as <code>output.txt</code> on your desktop.</p>
+
+    <a href="/batch_tool/download_batch" download>
+        <button>Download System Info Collector</button>
+    </a>
+
+    <h2>Upload your <code>output.txt</code></h2>
+    <form action="/batch_tool/upload_output" method="post" enctype="multipart/form-data">
+        <input type="file" name="output_file" accept=".txt" required>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

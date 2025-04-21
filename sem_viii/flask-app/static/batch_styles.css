@@ -1,0 +1,122 @@
+/* Reset & global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #f0f0f0;
+    background-color: #121212;
+    line-height: 1.6;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+/* Navigation Bar */
+nav {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 12px rgba(0, 255, 230, 0.1);
+    }
+    
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+    
+nav a {
+    color: #00ffe7;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.2s ease-in-out;
+}
+    
+nav a:hover {
+    color: #02dec9;
+    text-shadow: 0 0 5px rgba(0, 255, 230, 0.5);
+}
+  
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #00ffe7;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #00ffe7;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #cfcfcf;
+  }
+  
+  code {
+    background: #2a2a2a;
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: #00ffe7;
+  }
+  
+  a button, form button {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #00ffe7;
+    color: #121212;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+  }
+  
+  a button:hover, form button:hover {
+    background: #02dec9;
+  }
+  
+  form {
+    margin-top: 30px;
+  }
+  
+  input[type="file"] {
+    padding: 10px;
+    background: #222;
+    color: #cfcfcf;
+    border: 2px solid #333;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  input[type="file"]::-webkit-file-upload-button {
+    background: #00ffe7;
+    color: #121212;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  input[type="file"]::-webkit-file-upload-button:hover {
+    background: #02dec9;
+  }
+  

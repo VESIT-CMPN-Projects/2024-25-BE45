@@ -1,0 +1,114 @@
+/* Reset & Global Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #111;
+    color: #eee;
+    padding: 40px 20px;
+  }
+  
+  /* Navigation Bar */
+  nav {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 12px rgba(0, 255, 230, 0.1);
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+  }
+  
+  nav a {
+    color: #00ffe7;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  nav a:hover {
+    color: #02dec9;
+    text-shadow: 0 0 5px rgba(0, 255, 230, 0.5);
+  }
+  
+  /* Login Form Container */
+  .login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #1a1a1a;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 255, 230, 0.07);
+  }
+  
+  .login-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00ffe7;
+  }
+  
+  .login-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+  
+  .login-container input {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  .login-container input:focus {
+    outline: 2px solid #00ffe7;
+    background-color: #333;
+  }
+  
+  /* Button */
+  .login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00ffe7;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .login-container button:hover {
+    background-color: #02dec9;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 500px) {
+    nav ul {
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+  
+    .login-container {
+      padding: 30px 20px;
+    }
+  }
+  

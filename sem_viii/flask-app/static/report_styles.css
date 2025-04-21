@@ -1,0 +1,130 @@
+/* Reset & Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    padding: 40px 20px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  nav {
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 12px rgba(0, 255, 230, 0.1);
+}
+      
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+      
+nav a {
+    color: #00ffe7;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #02dec9;
+    text-shadow: 0 0 5px rgba(0, 255, 230, 0.5);
+}
+
+  /* Headings */
+  h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #00ffe7;
+    margin-bottom: 40px;
+  }
+  
+  h2 {
+    color: #00ffe7;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+  }
+  
+  /* Paragraphs and Lists */
+  p {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  li {
+    margin-bottom: 8px;
+  }
+  
+  /* Links */
+  a {
+    color: #00ffe7;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: #02dec9;
+  }
+  
+  /* Performance Metrics List */
+  ul li {
+    padding-left: 5px;
+  }
+  
+  /* Optional: subtle glow effect on links */
+  a {
+    text-shadow: 0 0 4px rgba(0, 255, 231, 0.5);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    body {
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  

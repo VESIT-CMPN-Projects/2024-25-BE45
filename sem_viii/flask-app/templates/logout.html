@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home.home') }}">Home</a></li>
+            <li><a href="{{ url_for('query.home') }}">Suggest</a></li>
+            <li><a href="{{ url_for('batch.home') }}">Health Check</a></li>
+        </ul>
+    </nav>
+    
+
+    <h1>You have successfully logged out!</h1>
+    <p><a href="/login">Click here to login again.</a></p>
+</body>
+</html>
